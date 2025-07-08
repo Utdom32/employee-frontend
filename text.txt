@@ -1,0 +1,129 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import DataTable from "react-data-table-component";
+
+const columns = [
+    {
+        name: "S No",
+        selector: (row) => row.sno,
+        sortable: true,
+    },
+    {
+        name: "Employee ID",
+        selector: (row) => row.employeeId,
+        sortable: true,
+    },
+    {
+      name: "Name",
+      selector: (row) => row.name,
+      sortable: true,
+    },
+    {
+        name: "Basic Salary",
+        selector: (row) => row.basicSalary,
+        sortable: true,
+    },
+    {
+        name: "Role",
+        selector: (row) => row.role,
+        sortable: true,
+    },
+    {
+        name: "Allowances",
+        selector: (row) => row.allowances,
+        sortable: true,
+    },
+    {
+        name: "Deductions",
+        selector: (row) => row.deductions,
+        sortable: true,
+    },
+    {
+        name: "Net Salary",
+        selector: (row) => row.netSalary,
+        sortable: true,
+    },
+    {
+        name: "Pay Date",
+        selector: (row) => row.payDate,
+        sortable: true,
+
+    }
+]
+const EmpSalaryView = () => {
+  const [salaries, setSalaries] = useState([]);
+  const [filteredSalaries, setFilteredSalaries] = useState(null);
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const fetchSalaries = async () => {
+    try {
+      const { data } = await axios.get(`http://localhost:8080/api/salary/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (data.success) {
+        const formattedData = data.salary.map((salary, index) => ({
+          id: salary._id,
+          sno: index + 1,
+          employeeId: salary.employeeId,
+          basicSalary: salary.basicSalary,
+          role: salary.userId?.role,
+          allowances: salary.allowances,
+          netSalary: salary.netSalary,
+          deductions: salary.deductions,
+          payDate: (salary.payDate).split("T")[0],
+        }));
+        setSalaries(formattedData);
+        setFilteredSalaries(formattedData);
+      } else {
+        console.error("Error fetching salaries:", data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching salaries:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSalaries();
+  }, []);
+
+  const handleFilter = (query) => {
+    const filteredSalaries = salaries.filter((salary) =>
+      salary.employeeId.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredSalaries(filteredSalaries);
+  };
+
+  return (
+    <div className="p-4">
+      <p className="text-3xl text-center text-white font-bold mb-4">
+        Employee Salaries History
+      </p>
+      {filteredSalaries === null ? (
+        <div>Loading ...</div>
+      ) : (
+        <div>
+          <DataTable
+            columns={columns}
+            data={filteredSalaries}
+            pagination
+            onFilter={handleFilter}
+          />
+          <div>
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => navigate("/admin-dashboard/salaries")}
+            >
+              Back
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default EmpSalaryView;

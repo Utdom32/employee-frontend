@@ -1,0 +1,8 @@
+{
+  "rewtites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
+}
