@@ -16,7 +16,7 @@ const fetchDepartments = async () => {
       setDepLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/department",
+          "https://employee-frontend-dti.vercel.app/api/department",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

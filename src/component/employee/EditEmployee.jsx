@@ -31,7 +31,7 @@ const EditEmployee = () => {
     const fetchDepartments = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/employee/${id}`,
+          `https://employee-frontend-dti.vercel.app/api/employee/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

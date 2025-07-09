@@ -31,7 +31,7 @@ const AddEmployee = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/employee/add",
+        "https://employee-frontend-dti.vercel.app/api/employee/add",
         formDataObj,
         {
           headers: {

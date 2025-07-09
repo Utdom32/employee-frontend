@@ -10,7 +10,7 @@ const DetailEmp = () => {
     const fetchLeave = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/leave/detail/${id}`,
+          `https://employee-frontend-dti.vercel.app/api/leave/detail/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

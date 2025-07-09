@@ -32,7 +32,7 @@ const Navbar = () => {
       </button>
       <div className="flex items-center space-x-4">
         <img
-          src={`http://localhost:8080/${user.profileImage}`}
+          src={`https://employee-frontend-dti.vercel.app/${user.profileImage}`}
           className="w-13 h-13 rounded-full"
         />
         <button onClick={Profile}>

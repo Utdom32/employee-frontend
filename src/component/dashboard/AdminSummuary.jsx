@@ -9,7 +9,7 @@ const AdminSummuary = () => {
   useEffect(() => {
   const fetchSummary = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/dashboard/summary",{
+      const response = await axios.get("https://employee-frontend-dti.vercel.app/api/dashboard/summary",{
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

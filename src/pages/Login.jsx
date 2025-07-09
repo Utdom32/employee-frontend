@@ -13,7 +13,7 @@ export const Login = () => {
         e.preventDefault();
         try {
            const response = await axios.post(
-            'http://localhost:8080/api/auth/login', {email,password}
+            'https://employee-frontend-dti.vercel.app/api/auth/login', {email,password}
         );
      
             if(response.data) {

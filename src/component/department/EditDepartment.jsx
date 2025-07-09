@@ -11,7 +11,7 @@ const EditDepartment = () => {
     const fetchDepartments = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/department/${id}`,
+          `https://employee-frontend-dti.vercel.app/api/department/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -37,7 +37,7 @@ const EditDepartment = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/department/${id}`,
+        `https://employee-frontend-dti.vercel.app/api/department/${id}`,
         department,
         {
           headers: {
